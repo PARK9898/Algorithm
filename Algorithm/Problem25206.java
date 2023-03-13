@@ -1,18 +1,28 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
+import java.util.StringTokenizer;
 
 public class Problem25206 {
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+		BufferedReader bfr = new BufferedReader(new InputStreamReader(System.in));
+		String strs[] = new String[50];
+		double Total_score = 0;
+
+		double Total_Time = 0;
 
 		List<Subject> subjects = new ArrayList<Subject>();
 
 		for(Subject s : subjects) {
-			String a = scanner.next();
-			String[] ch = a.split(" ");
-			subjects.add(new Subject(ch[0],ch[1],Integer.parseInt(ch[2]),0 ));
+			int i = 0;
+			strs[i] = bfr.readLine();
+			StringTokenizer st = new StringTokenizer(strs[i], " ");
+			s.setSubject_name(st.nextToken());
+			s.setTime(Double.parseDouble(st.nextToken()));
+			s.setScore(st.nextToken());
+			i++;
 		}
 
 		for(Subject s : subjects) {
@@ -47,6 +57,16 @@ public class Problem25206 {
 					break;
 			}
 		}
+		for(Subject s : subjects) {
+			if(s.getScore() != "P")
+			{
+				Total_Time += s.getTime();
+				Total_score += s.getScoreToDouble() * s.getTime();
+			}
+		}
+
+		System.out.println(Total_score/Total_Time);
+		bfr.close();
 	}
 
 	public static class Subject{
@@ -54,6 +74,18 @@ public class Problem25206 {
 		String Score; // 과목 평점
 		double Time; // 학점
 		double ScoreToDouble; //스코어를 더블로 변환
+
+		public void setSubject_name(String subject_name) {
+			Subject_name = subject_name;
+		}
+
+		public void setScore(String score) {
+			Score = score;
+		}
+
+		public void setTime(double time) {
+			Time = time;
+		}
 
 		public String getSubject_name() {
 			return Subject_name;
