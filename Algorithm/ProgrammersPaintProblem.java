@@ -11,48 +11,20 @@ public class ProgrammersPaintProblem {
 	}
 
 	public static int solution(int n, int m, int[] section) {
-		int answer = 0;
-		Integer[] board = new Integer[n];
-		
-		int rollNumber = 0;
-
-		for (int i = 0; i < board.length; i++) {
-			for(int j = 0; j < section.length; j++) {
-				if(section[j] == i) {
-					board[i] = 1; // 1은 색칠해야할 색션을 의미한다
-				}
-			}
-		}
-		int last = findLast(board);
-		for(int i  = 0; i  < board.length; i++) {
-			if(board[i] == 1 && i + n < board.length) {
-				for(int j = i; j < i + n; j++) {
-					if(board[j] == 1) {
-						board[j] = 0;
-					}
-				}
+		var rollerLength = m;
+		var wallLength = n;
+		var position = 0; // 어디까지 칠해져있는지를 판단
+		var rollNumber = 0;
+		for(int i = 0; i < section.length; i++) {
+			if(section[i] + rollerLength - 1 <= wallLength && section[i] > position) {
+				position = section[i] + rollerLength - 1;
 				rollNumber++;
 			}
-			else if(board[i] == 1 && i + n > board.length) {
-				for(int k = last; k > last - n; k--) {
-					if(board[k] == 1) {
-						board[k] = 0;
-					}
-				}
-				rollNumber++;
-				break;
+			else if(section[i] > position){
+					rollNumber++;
+					break;
 			}
 		}
 		return rollNumber;
-	}
-
-	public static int findLast(Integer[] board) {
-		int last = 0;
-		for(int i = 0; i < board.length;) {
-			if(board[i] == 1) {
-				last = i;
-			}
-		}
-		return last;
-	}
+	}//section[i] + roolerLength - 1 -> i 번쨰 기준으로 칠해지는 넓이
 }
