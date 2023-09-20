@@ -1,14 +1,18 @@
 public class ProgrammersStringSplit {
 	public static void main(String[] args) {
-		String s = "banana";
+		String s = "abracadabra";
 		int a = solution(s);
 		System.out.println(a);
 	}
 	public static int solution(String s) {
 		int answer = 0;
-		String stopOrContinue = "";
-		while (!stopOrContinue.equals("no")) {
-			stopOrContinue = splitString(s);
+		String stopOrContinue = s;
+		while (true) {
+			stopOrContinue = splitString(stopOrContinue);
+			if(stopOrContinue.equals("no")) {
+				answer++;
+				break;
+			}
 			answer++;
 		}
 		return answer;
@@ -16,26 +20,24 @@ public class ProgrammersStringSplit {
 
 	public static String splitString(String s) {
 		int position = 0;
+		int countFirst = 1;
+		int countElse = 0;
 		for(int i = 0; i < s.length(); i++) {
 			char first = s.charAt(0);
-			int countFirst = 1;
-			int countElse = 0;
-			if(first != s.charAt(i) && i > 1) {
+			if (first != s.charAt(i) && i >= 1) {
 				countElse++;
-				if(countElse == countFirst) {
+				if (countElse == countFirst) {
 					position = i;
-					break; // 짤라지는 구간 만약 안짤라진다면?
+					if(position == s.length()-1) {
+						return "no";
+					}
+					return s.substring(position + 1);
 				}
-			}
-			else {
+			} else if (first == s.charAt(i) && i >= 1) {
 				countFirst++;
 			}
-			if(i == s.length() -1) {
-				return "no";
-			}
 		}
-
-		return s.substring(position + 1);
+		return "no";
 	}
 }
 // 설계
