@@ -16,6 +16,6 @@ public class Problem2941 {
 		croatia = croatia.replace("z=","x");
 		count = croatia.length();
 		System.out.println(count);
-		
+
 	}
 }

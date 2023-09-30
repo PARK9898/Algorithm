@@ -37,4 +37,5 @@ public class Problem1316 {
 		}
 		return 1;
 	}
+
 }
